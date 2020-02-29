@@ -64,6 +64,11 @@ $ sudo yum install mongodb-org
 ###   Debian Based Distros (Debian, Ubuntu, Pop! OS, Elementary OS):
 ```mongodb``` package provided by Ubuntu is not actually maintained by the MongoDB community. You should first uninstall that package.  
 
+```bash
+$ sudo apt-get purge mongodb
+$ sudo apt-get autoremove
+```
+
 Add the MongoDB GPG key for the apt repository:  
 ```bash
 $ wget -qO - https://www.mongodb.org/static/pgp/server-4.2.asc | sudo apt-key add -
@@ -74,12 +79,26 @@ If you receive an error indicating that gnupg is not installed:
 $ sudo apt-get install gnupg
 ```
 Then, retry the previous **wget** command.  
-Add the MongoDB repository with:
+Add the MongoDB repository:
 ```bash
 $ echo "deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.2 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb.list
 ```  
+Update your repositories:
+```bash
+$ sudo apt-get update
+```
 
-Finally, install MongoDB using:
+Finally, install MongoDB:
 ```bash
 $ sudo apt-get install mongodb-org
+```
+
+To test if everything went well:
+```bash
+$ mongod --version
+```
+
+You can start the server and play around with it using:
+```bash
+$ mongod
 ```
