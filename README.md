@@ -19,9 +19,9 @@ Your Python version should be at least 3.6 for this version of Django.
 
 ### Contribution Guide:
 
- Fork the repository and then ```git clone``` your forked copy.  
- Go into the cloned repo with ```cd```.  
- Add upstream using ```git remote add upstream https://github.com/AUBGTheHUB/Eureka.git```.  
- This lets you use ```git pull origin master``` to pull the most recent changes from the main repo.  
+ Fork the repository and then  
+ ```$ git clone yourforkedcopy.git```   
+ Add upstream using ```$ git remote add upstream https://github.com/AUBGTheHUB/Eureka.git```.  
+ This lets you use ```$ git pull origin master``` to pull the most recent changes from the main repo.  
  Make your changes, do your commits and push the changes to the forked repo.
  Do a pull request against Eureka/master to request to merge your changes.
