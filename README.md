@@ -6,16 +6,16 @@
  2. Get Django using ```pip3 install Django==3.0.3```. It's highly suggested that you do this in a venv.  
  3. You can run the test server by using:
 
- ```bash
- $ cd eureka
- $ python manage.py runserver
- ```
+```bash
+$ cd eureka
+$ python manage.py runserver
+```
 
  In case you have both Python 2 and 3, you should use:  
 
- ```bash
- $ python3 manage.py runserver
- ```
+```bash
+$ python3 manage.py runserver
+```
 
 Your Python version should be at least 3.6 for this version of Django.
 
@@ -24,19 +24,19 @@ Your Python version should be at least 3.6 for this version of Django.
  Fork the repository and then:  
 
 ```
- $ git clone yourforkedcopy.git
+$ git clone yourforkedcopy.git
 ```  
 
  Add upstream using:
 
 ```
- $ git remote add upstream https://github.com/AUBGTheHUB/Eureka.git
+$ git remote add upstream https://github.com/AUBGTheHUB/Eureka.git
 ```  
 
  To pull the most recent changes from the main repo:  
 
 ```
-  $ git pull origin master
+$ git pull origin master
 ```
 
  Make your changes, do your commits and push the changes to the forked repo.
@@ -47,7 +47,7 @@ Your Python version should be at least 3.6 for this version of Django.
 #### RedHat Based Distros (Fedora, CentOS, RHEL)
 
 ```bash
- $ sudo touch /etc/yum.repos.d/mongodb.repo
+$ sudo touch /etc/yum.repos.d/mongodb.repo
 ```
 
 Edit the file with whatever text editor. Add this in: 
@@ -64,13 +64,13 @@ gpgkey=https://www.mongodb.org/static/pgp/server-4.2.asc
 #### Fedora
 
 ```bash
- $ sudo dnf install mongodb-org
+$ sudo dnf install mongodb-org
 ```  
 
 #### CentOS/RHEL  
 
 ```bash
- $ sudo yum install mongodb-org
+$ sudo yum install mongodb-org
 ```  
   
 #### Debian Based Distros (Debian, Ubuntu, Pop! OS, Elementary OS)
@@ -78,49 +78,49 @@ gpgkey=https://www.mongodb.org/static/pgp/server-4.2.asc
 ```mongodb``` package provided by Ubuntu is not actually maintained by the MongoDB community. You should first uninstall that package.  
 
 ```bash
- $ sudo apt-get purge mongodb
- $ sudo apt-get autoremove
+$ sudo apt-get purge mongodb
+$ sudo apt-get autoremove
 ```
 
 Add the MongoDB GPG key for the apt repository: 
 
 ```bash
- $ wget -qO - https://www.mongodb.org/static/pgp/server-4.2.asc | sudo apt-key add -
+$ wget -qO - https://www.mongodb.org/static/pgp/server-4.2.asc | sudo apt-key add -
 ```
 
 If you receive an error indicating that gnupg is not installed:
 
 ```bash
- $ sudo apt-get install gnupg
+$ sudo apt-get install gnupg
 ```
 
 Then, retry the previous **wget** command.  
 Add the MongoDB repository:
 
 ```bash
- $ echo "deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.2 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb.list
+$ echo "deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.2 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb.list
 ```
 
 Update your repositories:
 
 ```bash
- $ sudo apt-get update
+$ sudo apt-get update
 ```
 
 Finally, install MongoDB:
 
 ```bash
- $ sudo apt-get install mongodb-org
+$ sudo apt-get install mongodb-org
 ```
 
 To test if everything went well:
 
 ```bash
- $ mongod --version
+$ mongod --version
 ```
 
 You can start the server and play around with it using:
 
 ```bash
- $ mongod
+$ mongod
 ```
