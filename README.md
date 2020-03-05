@@ -3,11 +3,10 @@
 ## Instructions  
 
  1. Clone the repo with ```git clone https://github.com/theHubAUBGproject/Eureka.git```.  
- 2. Get Django using ```pip3 install Django==3.0.3```. It's highly suggested that you do this in a venv.  
+ 2. Get Django and all dependencies using ```pip3 install -r requirements.txt```. It's highly suggested that you do this in a venv.  
  3. You can run the test server by using:
 
 ```bash
-$ cd eureka
 $ python manage.py runserver
 ```
 
@@ -17,7 +16,7 @@ $ python manage.py runserver
 $ python3 manage.py runserver
 ```
 
-Your Python version should be at least 3.6 for this version of Django.
+Your Python version should be at least 3.5 for this version of Django.
 
 ## Contribution Guide
 
