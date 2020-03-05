@@ -36,7 +36,7 @@ $ git remote add upstream https://github.com/AUBGTheHUB/Eureka.git
  To pull the most recent changes from the main repo:  
 
 ```
-$ git pull origin master
+$ git pull upstream master
 ```
 
  Make your changes, do your commits and push the changes to the forked repo.
