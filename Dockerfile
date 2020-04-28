@@ -1,13 +1,12 @@
 FROM python:rc-alpine3.11
 
 RUN apk update && \
-    apk add gcc
+    apk add --no-cache build-base
 
 WORKDIR /usr/src/app
-COPY requirements.txt ./
+COPY ./requirements.txt /usr/src/app
 RUN pip install -r requirements.txt
 COPY . .
-RUN python manage.py migrate
 
-EXPOSE 80
-CMD ["python", "manage.py", "runserver", "0.0.0.0:80"]
+EXPOSE 8000
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]

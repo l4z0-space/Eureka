@@ -1,0 +1,11 @@
+services:
+  - docker
+
+script:
+  - docker build -t $USER/eureka:latest .
+
+deploy:
+  provider: script
+  script: bash docker_deploy
+  on:
+    branch: master

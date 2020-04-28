@@ -1,8 +1,8 @@
-# Eureka
+# Eureka [![Build Status](https://travis-ci.com/AUBGTheHUB/Eureka.svg?branch=develop)](https://travis-ci.com/AUBGTheHUB/Eureka)
 
 ## Instructions  
 
- 1. Clone the repo with ```git clone https://github.com/theHubAUBGproject/Eureka.git```.  
+ 1. Clone the repo with ```git clone https://github.com/AUBGTheHUB/Eureka.git```.  
  2. Get Django and all dependencies using ```pip3 install -r requirements.txt```. It's highly suggested that you do this in a venv.  
  3. You can run the test server by using:
 
