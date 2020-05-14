@@ -23,9 +23,7 @@ SECRET_KEY = 'tjwhs8#(v511t9(-%ojwl6=c_iir+)f5rlc$!gah)w-^shditr'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [
-    '127.0.0.1'
-]
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -38,7 +36,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'wordDictionary',
-    'rest_framework'
+    'rest_framework',
+    'api'
 ]
 
 MIDDLEWARE = [
@@ -78,14 +77,13 @@ WSGI_APPLICATION = 'eureka.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'djongo',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'unimorph',
-        'ENFORCE_SCHEMA': True
-   },
-   'CLIENT': {
-        'host': 'localhost',
-        'port': 27017,
-   },
+        'USER': 'postgres',
+        'PASSWORD': 'posgres',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
 }
 
 
