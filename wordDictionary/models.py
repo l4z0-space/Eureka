@@ -39,10 +39,10 @@ class FamilyForm(forms.ModelForm):
 
 
 class Language(models.Model):
-    name = models.CharField(max_length=15)
-    family = models.ForeignKey("Family", on_delete=models.PROTECT, null=True)
-    genus = models.ForeignKey("Genus", on_delete=models.PROTECT, null=True)
-    walsCode = models.CharField(max_length=15, blank=True)
+    name = models.CharField(max_length=20)
+    family = models.ForeignKey('Family', on_delete=models.PROTECT, null=True)
+    genus = models.ForeignKey('Genus', on_delete=models.PROTECT, null=True)
+    walsCode = models.CharField(max_length=10, blank=True)
 
     def __str__(self):
         return self.name
@@ -55,7 +55,7 @@ class LanguageForm(forms.ModelForm):
 
 
 class Dimension(models.Model):
-    name = models.CharField(max_length=20)
+    name = models.CharField(max_length=30)
 
     def __str__(self):
         return self.name
@@ -68,9 +68,9 @@ class DimensionForm(forms.ModelForm):
 
 
 class Feature(models.Model):
-    name = models.CharField(max_length=20)
+    name = models.CharField(max_length=30)
     dimension = models.ForeignKey(
-        "Dimension",
+        'Dimension',
         on_delete=models.PROTECT,
         null=True
     )
@@ -101,14 +101,14 @@ class POSForm(forms.ModelForm):
 class Lemma(models.Model):
     name = models.CharField(max_length=50)
     language = models.ForeignKey(
-        "Language",
+        'Language',
         on_delete=models.PROTECT,
         null=True
     )
     animacy = models.BooleanField(default=True)
     transivity = models.BooleanField(default=True)
     author = models.ForeignKey(User, on_delete=models.PROTECT, null=True)
-    pos = models.ForeignKey("POS", on_delete=models.PROTECT, null=True)
+    pos = models.ForeignKey('POS', on_delete=models.PROTECT, null=True)
     date_updated = models.DateTimeField(default=timezone.now)
 
     def __str__(self):

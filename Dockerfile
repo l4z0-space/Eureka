@@ -1,4 +1,4 @@
-FROM python:3.8.2-alpine3.11
+FROM python:3.7.7-alpine3.11
 
 RUN apk update && \
     apk add --no-cache build-base postgresql-dev python3-dev musl-dev
@@ -10,6 +10,10 @@ COPY ./requirements.txt /usr/src/app
 RUN pip install -r requirements.txt
 
 COPY . .
+
+RUN adduser -D -g '' django && chown -R django:django /usr/src/app
+
+USER django
 
 EXPOSE 8000
 

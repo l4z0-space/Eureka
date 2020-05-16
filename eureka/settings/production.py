@@ -17,7 +17,7 @@ SECRET_KEY = os.environ['SECRET_KEY']
 
 DEBUG = False
 
-ALLOWED_HOSTS = [ '0.0.0.0' ]
+ALLOWED_HOSTS = [ '0.0.0.0', 'unimorph.ethz.ch' ]
 
 
 # Application definition
@@ -128,3 +128,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT ='./static'

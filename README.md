@@ -1,4 +1,4 @@
-# Eureka [![Build Status](https://travis-ci.com/AUBGTheHUB/Eureka.svg?branch=develop)](https://travis-ci.com/AUBGTheHUB/Eureka)
+# Eureka
 
 ## Instructions  
 
