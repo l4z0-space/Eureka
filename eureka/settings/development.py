@@ -35,8 +35,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'wordDictionary',
     'rest_framework',
+    'django_filters',
     'api'
 ]
 
@@ -80,9 +80,8 @@ WSGI_APPLICATION = 'eureka.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'unimorph',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
+        'NAME': 'testdb',
+        'USER': 'testdb',
         'HOST': 'localhost',
         'PORT': '5432',
     }
@@ -115,7 +114,8 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': (
        'rest_framework.authentication.SessionAuthentication',
-   ),
+    ),
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
 }
 
 # Internationalization
