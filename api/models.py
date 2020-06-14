@@ -12,7 +12,7 @@ class UserForm(forms.ModelForm):
 
 
 class Genus(models.Model):
-    name = models.CharField(max_length=15)
+    name = models.CharField(max_length=30)
 
     def __str__(self):
         return self.name
@@ -25,7 +25,7 @@ class GenusForm(forms.ModelForm):
 
 
 class Family(models.Model):
-    name = models.CharField(max_length=15)
+    name = models.CharField(max_length=30)
 
     def __str__(self):
         return self.name
@@ -38,7 +38,7 @@ class FamilyForm(forms.ModelForm):
 
 
 class Language(models.Model):
-    name = models.CharField(max_length=20)
+    name = models.CharField(max_length=30)
     family = models.ForeignKey('Family', on_delete=models.PROTECT, null=True)
     genus = models.ForeignKey('Genus', on_delete=models.PROTECT, null=True)
     walsCode = models.CharField(max_length=10, blank=True)
@@ -67,7 +67,7 @@ class DimensionForm(forms.ModelForm):
 
 
 class Feature(models.Model):
-    name = models.CharField(max_length=30)
+    name = models.CharField(max_length=50)
     dimension = models.ForeignKey(
         'Dimension',
         on_delete=models.PROTECT,
@@ -85,7 +85,7 @@ class FeatureForm(forms.ModelForm):
 
 
 class POS(models.Model):
-    name = models.CharField(max_length=20)
+    name = models.CharField(max_length=30)
 
     def __str__(self):
         return self.name
