@@ -22,7 +22,6 @@ class PosSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-
 class DimensionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Dimension
@@ -56,22 +55,23 @@ class TagSetSerializer(serializers.ModelSerializer):
 
 
 class FamilySerializer(serializers.ModelSerializer):
+    
     class Meta:
         model = Family
         fields = '__all__'
 
 
-
 class WordSerializer(serializers.ModelSerializer):
     lemma = LemmaSerializer(read_only=True)
     tagset = TagSetSerializer(read_only=True)
+    
     class Meta:
         model = Word
         fields = '__all__'
 
 
-
 class GenusSerializer(serializers.ModelSerializer):
+    
     class Meta:
         model = Genus
         fields = '__all__'

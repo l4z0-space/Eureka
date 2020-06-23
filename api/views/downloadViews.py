@@ -30,7 +30,7 @@ class DimensionDownload(APIView):
         items = Dimension.objects.all()
         response = HttpResponse(content_type='text/csv')
         response['content-disposition'] = 'attachment; filename="dimensions.csv"'
-        writer = csv.writer(response, delimiter=';' )
+        writer = csv.writer(response, delimiter=';')
         writer.writerow(['name'])
         for obj in items:
             writer.writerow([obj.name])
@@ -57,7 +57,7 @@ class LanguageDownload(APIView):
         response = HttpResponse(content_type='text/csv')
         response['content-disposition'] = 'attachment; filename="languages.csv"'
         writer = csv.writer(response, delimiter=';' )
-        writer.writerow(['name','family','genus','walsCode'])
+        writer.writerow(['name', 'family', 'genus', 'walsCode'])
         for obj in items:
             writer.writerow([obj.name, obj.family, obj.genus, obj.walsCode])
         return response

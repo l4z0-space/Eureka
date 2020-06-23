@@ -34,13 +34,11 @@ jobs:
         repository: thehubaubg/unimorph-backend
         tags: latest
 
-
     - name: SSH Deploy
       uses: garygrossgarten/github-action-ssh@release
       with:
-        command: docker-compose -f prod/Eureka/docker-compose.yml down && docker-compose -f prod/Eureka/docker-compose.yml pull && docker-compose -f prod/Eureka/docker-compose.yml up -d
+        command: docker-compose -f deploy/production.yml down && docker-compose -f deploy/production.yml pull && docker-compose -f deploy/production.yml up -d
         host: ${{ secrets.HOST }}
         username: ${{ secrets.SSH_USER }}
         passphrase: ${{ secrets.PASSPHRASE }}
         privateKey: ${{ secrets.PRIVATE_KEY }}
-
