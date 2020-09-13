@@ -49,10 +49,6 @@ class LemmaDetail(generics.RetrieveUpdateAPIView):
         words = RelatedWordSerializer(related_words, many=True)
         lemma_data = serializer.data
         words_data = words.data
-        for i in words_data:
-            dims = getDimOptions(i['tagset'])
-            i['tagset'] = getFeatures(i['tagset'])
-            i['dimensions'] = dims
         lemma_data['related_words'] = words_data
         return Response(lemma_data,
                         headers={"Access-Control-Allow-Origin": "*"},
