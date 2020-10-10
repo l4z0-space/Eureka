@@ -1,17 +1,20 @@
-from api.serializers import (FeatureSerializer,
-                             DimensionSerializer)
-from .models import Feature, Dimension
-
-from django.http import Http404, HttpResponse
-from rest_framework.response import Response
 import csv
+from io import BytesIO, StringIO
+from zipfile import ZipFile
+
+from api.serializers import DimensionSerializer, FeatureSerializer
 from django.db import connection
-from django.utils import timezone
 from django.db.models import F
-from django.db.models import Case, When, Value, CharField
+from django.http import Http404, HttpResponse
+from django.utils import timezone
+from rest_framework.response import Response
+
+from .models import Dimension, Feature, Word
+
 # Returns all the possible features for
 # the word's dimension in following format:
 # { 'dim1': [['feat1', True], ['feat2', False], ...], ... }
+
 
 def getDimOptions(tagset):
     # result is returned as a dictionary
@@ -35,10 +38,9 @@ def getDimOptions(tagset):
 
 
 def getFeatures(tagset):
-    result = []
-    for i in tagset['features']:
-        result.append({i['dimension']['name']: i['name']})
+    result = [{x['dimension']['name']: x['name']} for x in tagset['features']]
     return result
+
 
 def getAllFeatures(dimension):
     result = set([])
@@ -49,14 +51,51 @@ def getAllFeatures(dimension):
     return result
 
 
-def qs_to_csv_response(querySet, filename):
-    """ Get the queryset and creates the file """
-    sql, params = querySet.query.sql_with_params()
-    sql = f"COPY ({sql}) TO STDOUT WITH (FORMAT CSV, HEADER, DELIMITER E'\t')"
-    filename = f'{filename}.txt'
-    response = HttpResponse(content_type='text/csv')
-    response['Content-Disposition'] = f'attachment; filename={filename}'
-    with connection.cursor() as cur:
-        sql = cur.mogrify(sql, params)
-        cur.copy_expert(sql, response)
-    return response
+class Response():
+    """ Class to help with custom responses """
+
+    def csvResponse(self, querySet, filename):
+        """ Get the queryset and creates the csv file """
+        sql, params = querySet.query.sql_with_params()
+        sql = f"COPY ({sql}) TO STDOUT WITH (FORMAT CSV, HEADER, DELIMITER E',')"
+        filename = f'{filename}.csv'
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = f'attachment; filename={filename}'
+        with connection.cursor() as cur:
+            sql = cur.mogrify(sql, params)
+            cur.copy_expert(sql, response)
+        return response
+
+    def zipResponse(self, allLanguages, filename):
+        """ Get the languages queryset and create the zip file """
+        in_memory = BytesIO()
+        zip = ZipFile(in_memory, "a")
+        languageList = list(allLanguages)
+        for language in languageList:
+            # Determine the queryset
+            querySet = self.wordFormatFile(language)
+            sql, params = querySet.query.sql_with_params()
+            sql = f"COPY ({sql}) TO STDOUT WITH (FORMAT CSV, HEADER, DELIMITER E',')"
+            subfileName = f'{language}.csv'
+            response = HttpResponse(content_type='text/csv')
+            with connection.cursor() as cur:
+                sql = cur.mogrify(sql, params)
+                cur.copy_expert(sql, response)
+                # Add to the zip file
+                zip.writestr(subfileName, response.content)
+        zip.close()
+        # Creates the zip file response
+        response = HttpResponse(content_type="application/zip")
+        response["Content-Disposition"] = f"attachment; filename={filename}.zip"
+        in_memory.seek(0)
+        response.write(in_memory.read())
+        return response
+
+    def wordFormatFile(self, languageObject):
+        """ Fix the format in which words will be displayed in files """
+        querySet = Word.objects.filter(language=languageObject.id).values(
+            'name',
+            lemma_name=F('lemma__name'),
+            tagset_name=F('tagset__name'),
+        )
+        return querySet
