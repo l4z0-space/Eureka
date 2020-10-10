@@ -3,7 +3,7 @@ version: '3.8'
 services:
   backend:
     container_name: backend
-    image: thehubaubg/unimorph-backend:latest
+    image: thehubaubg/api:latest
     environment:
     - DB_USER=${DB_USER}
     - DB_PASSWORD=${DB_PASSWORD}
@@ -19,7 +19,7 @@ services:
       
   nginx:
     container_name: nginx
-    image: thehubaubg/unimorph-frontend:latest
+    image: thehubaubg/frontend:latest
     ports:
     - 80:80
     volumes:
