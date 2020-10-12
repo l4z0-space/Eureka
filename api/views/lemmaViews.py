@@ -27,7 +27,7 @@ class LemmaList(generics.ListCreateAPIView):
 class LemmaDetail(generics.RetrieveUpdateAPIView):
     queryset = Lemma.objects.all()
     serializer_class = LemmaSerializer
-    lookup_field = '^name'
+    lookup_field = 'name'
 
     def get_related_words(self, pk):
         try:
