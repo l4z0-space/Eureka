@@ -19,7 +19,7 @@ services:
       
   nginx:
     container_name: nginx
-    image: thehubaubg/unimorph-frontend:latest
+    image: thehubaubg/frontend:latest
     ports:
     - 80:80
     volumes:
