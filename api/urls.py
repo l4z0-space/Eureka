@@ -6,7 +6,7 @@ from urllib import parse
 urlpatterns = [
     path('', views.APIRootList.as_view(), name='root'),
     # All-models views
-    path('users/', views.UserList.as_view(), name='users'),
+    # path('users/', views.UserList.as_view(), name='users'),
     path('families/', views.FamilyList.as_view(), name='families'),
     path('languages/', views.LanguageList.as_view(), name='languages'),
     path('dimensions/', views.DimensionList.as_view(),name='dimensions'),
