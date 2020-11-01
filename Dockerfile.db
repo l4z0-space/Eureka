@@ -1,0 +1,16 @@
+FROM postgres:12.2
+
+ENV POSTGRES_HOST_AUTH_METHOD trust
+
+ENV POSTGRES_DB prod
+
+ENV POSTGRES_USER dbuser
+
+ADD ./prod.sql /docker-entrypoint-initdb.d
+
+# CMD ["docker-entrypoint.sh"]
+
+# RUN psql -U postgres -c "create role test"
+
+# RUN psql -U postgres -c "create database testdb with owner test encoding = 'UTF8';"
+

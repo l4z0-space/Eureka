@@ -81,9 +81,9 @@ WSGI_APPLICATION = 'eureka.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': os.environ.get('DB_BACKEND', 'django.db.backends.postgresql_psycopg2'),
-        'NAME': 'testdb',
-        'USER': 'testdb',
-        'PASSWORD': 'testdb',
+        'NAME': 'prod',
+        'USER': 'unimorph',
+        'PASSWORD': 'DastanLazaron',
         'HOST': os.environ.get('DB_HOST', 'localhost'),
         'PORT': '5432',
     }
