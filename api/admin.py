@@ -1,8 +1,38 @@
 from django.contrib import admin
 from django.contrib.auth.models import Permission
 
+from django.utils.translation import gettext as _
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from .models import (POS, Dimension, Family, Feature, Genus, Language, Lemma,
-                     TagSet, Word)
+                     TagSet, Word, User)
+
+class UserAdmin(BaseUserAdmin):
+    ordering = ['id']
+    list_display = ['email', 'name']
+
+    fieldsets = (
+        (None, {'fields': ('email', 'password')}),
+        (_('Personal Info'), {'fields': ('name',)}),
+        (
+            _('Permissions'),
+            {
+                'fields': (
+                    'is_active',
+                    'is_staff',
+                    'is_superuser',
+                )
+            }
+        ),
+        (_('Important dates'), {'fields': ('last_login',)}),
+    )
+
+    add_fieldsets = (
+        (None, {
+            'classes': ('wide',),
+            'fields': ('email', 'password1', 'password2')
+        }),
+    )
+
 
 # Register your models here.
 admin.site.register(Word)
@@ -14,3 +44,4 @@ admin.site.register(Family)
 admin.site.register(TagSet)
 admin.site.register(POS)
 admin.site.register(Genus)
+admin.site.register(User, UserAdmin)

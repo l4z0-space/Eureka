@@ -37,7 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'django_filters',
-    'api'
+    'accounts',
+    'api',
+    'rest_framework.authtoken',
+
 ]
 
 MIDDLEWARE = [
@@ -140,3 +143,5 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT ='./static'
+
+AUTH_USER_MODEL = 'api.User'
