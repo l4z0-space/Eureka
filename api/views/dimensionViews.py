@@ -14,7 +14,7 @@ class DimensionList(generics.ListCreateAPIView):
     filter_backends = [DjangoFilterBackend]
     search_fields = ['name']
 
-    def options(self, request):
+    def options(self, request, lang):
         return Response(status=status.HTTP_200_OK,
                         headers={"Access-Control-Allow-Origin": "*",
                                  "Access-Control-Allow-Headers":

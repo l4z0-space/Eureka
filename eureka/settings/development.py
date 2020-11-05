@@ -23,7 +23,7 @@ SECRET_KEY = 'tjwhs8#(v511t9(-%ojwl6=c_iir+)f5rlc$!gah)w-^shditr'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["127.0.0.1", "0.0.0.0"]
 
 
 # Application definition
@@ -85,7 +85,7 @@ DATABASES = {
     'default': {
         'ENGINE': os.environ.get('DB_BACKEND', 'django.db.backends.postgresql_psycopg2'),
         'NAME': 'prod',
-        'USER': 'unimorph',
+        'USER': 'prod',
         'PASSWORD': 'DastanLazaron',
         'HOST': os.environ.get('DB_HOST', 'localhost'),
         'PORT': '5432',

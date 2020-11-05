@@ -43,11 +43,16 @@ class FamilySerializer(serializers.ModelSerializer):
         model = Family
         fields = '__all__'
 
+class LangLemmaSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Lemma
+        fields = ["name"]
+
 
 class LanguageSerializer(serializers.ModelSerializer):
     genus = GenusSerializer(read_only=True)
     family = FamilySerializer(read_only=True)
-
     class Meta:
         model = Language
         fields = '__all__'

@@ -72,7 +72,6 @@ class Language(models.Model):
     family = models.ForeignKey('Family', on_delete=models.PROTECT, null=True)
     genus = models.ForeignKey('Genus', on_delete=models.PROTECT, null=True)
     walsCode = models.CharField(max_length=10, blank=True)
-
     def __str__(self):
         return self.name
 

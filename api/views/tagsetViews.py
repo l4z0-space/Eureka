@@ -12,7 +12,7 @@ class TagSetList(generics.ListCreateAPIView):
     filterset_backends = [DjangoFilterBackend]
     filterset_fields = ['name', 'features']
 
-    def options(self, request):
+    def options(self, request, lang):
         return Response(status=status.HTTP_200_OK,
                         headers={"Access-Control-Allow-Origin": "*",
                                  "Access-Control-Allow-Headers":

@@ -1,28 +1,39 @@
 from django.core.exceptions import MultipleObjectsReturned
 from django.http import Http404
+from django.db.models import Prefetch
 from django.shortcuts import get_list_or_404
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters, generics, status
 from rest_framework.response import Response
+from rest_framework.pagination import PageNumberPagination
 
-from ..models import Lemma, Word
-from ..serializers import LemmaSerializer, RelatedWordSerializer
+from ..models import Lemma, Word, Language
+from ..serializers import LemmaSerializer, RelatedWordSerializer, LanguageSerializer, LangLemmaSerializer
 from ..utils import getDimOptions, getFeatures
 
+paginator = PageNumberPagination()
 
 class LemmaList(generics.ListCreateAPIView):
     queryset = Lemma.objects.all()
-    serializer_class = LemmaSerializer
+    serializer_class = LangLemmaSerializer
     filter_backends = [filters.SearchFilter, DjangoFilterBackend]
     filterset_fields = ['language', 'animacy', 'transivity', 'author', 'pos', 'date_updated']
     search_fields = ['^name']
+    paginator.page_size = 72
+
+    def list(self, request, lang, **kwargs):
+        language = Language.objects.get(walsCode=lang)
+        queryset = Lemma.objects.filter(language=language.id).filter(name__contains=self.request.GET.get("search", ""))
+        serializer_class = self.get_serializer_class()
+        page = paginator.paginate_queryset(queryset, request)
+        serializer = serializer_class(page, many=True)
+        return paginator.get_paginated_response(serializer.data)
         
-    def options(self, request):
+    def options(self, request, lang):
         return Response(status=status.HTTP_200_OK,
                         headers={"Access-Control-Allow-Origin": "*",
                                  "Access-Control-Allow-Headers":
                                  "access-control-allow-origin"})
-
 
 class LemmaDetail(generics.RetrieveUpdateAPIView):
     queryset = Lemma.objects.all()
@@ -36,14 +47,14 @@ class LemmaDetail(generics.RetrieveUpdateAPIView):
         except Word.DoesNotExist:
             return Http404
 
-    def get_object(self):
+    def get_object(self, name):
         queryset = self.get_queryset()
-        filter = {self.lookup_field: self.kwargs[self.lookup_field]}
+        filter = {'name': name}
         objs = get_list_or_404(queryset, **filter)
         return objs[0]
 
-    def retrieve(self, request, name, format=None):
-        lemma = self.get_object()
+    def retrieve(self, request, lang, name, format=None):
+        lemma = self.get_object(name)
         serializer = LemmaSerializer(lemma)
         related_words = self.get_related_words(lemma.id)
         words = RelatedWordSerializer(related_words, many=True)
@@ -54,7 +65,7 @@ class LemmaDetail(generics.RetrieveUpdateAPIView):
                         headers={"Access-Control-Allow-Origin": "*"},
                         status=status.HTTP_200_OK)
 
-    def options(self, request, name):
+    def options(self, request, lang, name):
         return Response(status=status.HTTP_200_OK,
                         headers={"Access-Control-Allow-Origin": "*",
                                  "Access-Control-Allow-Headers":
