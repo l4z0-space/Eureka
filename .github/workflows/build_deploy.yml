@@ -1,8 +1,11 @@
 name: Deploy Pipeline
 
 on:
-  push:
-    branches: [ master ]
+  release:
+    types: [ published, created, edited, released ]
+  # push:
+  #   tags:
+  #    - v*
 
 jobs:
   deploy:
