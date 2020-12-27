@@ -3,9 +3,6 @@ name: Deploy Pipeline
 on:
   release:
     types: [ published, created, edited, released ]
-  # push:
-  #   tags:
-  #    - v*
 
 jobs:
   deploy:
